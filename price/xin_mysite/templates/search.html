@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+<title>Sources{% if query %} Results{% endif %}</title>
+</head>
+<body>
+<h1>Search</h1>
+<form action="." method="GET">
+<label for="q">Search: </label>
+<input type="text" name="q" value="{{ query|escape }}">
+<input type="submit" value="Search">
+</form>
+{% if query %}
+<h2>Results for "{{ query|escape }}":</h2>
+{% if results %}
+<ul>
+{% for xincar in results %}
+<li>
+name: {{xincar.name}}&nbsp;&nbsp;&nbsp;&nbsp;
+city: {{xincar.city}}&nbsp;&nbsp;&nbsp;&nbsp;
+price: {{xincar.price}}&nbsp;&nbsp;&nbsp;&nbsp;
+licensed_time: {{xincar.licensed_time}}&nbsp;&nbsp;&nbsp;&nbsp;
+mile: {{xincar.mile}}<br><br>
+</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No cars found</p>
+{% endif %}
+{% endif %}
+
+<div>
+{% if posts.has_previous %}
+<a href="?page={{ results.previous_page_number }}">&lt;pre</a>
+{% endif %}
+<span>
+{% for p in page_range %}
+{% ifequal p results.number %}
+<span class="current">{{p}}</span>
+{% else %}
+<a href="?page={{p}}" title ="this is page{{p}}">{{p}}</a>
+{% endifequal %}
+{% endfor %}
+</span>
+{% if results.has_next %}
+<a href="?page={{ results.next_page_number}}">nextpage&gt;</a>
+{% endif %}
+<a>[this is page {{ results.number }}/{{ results.paginator.num_pages}}]</a>
+</div>
+</body>
+</html>
