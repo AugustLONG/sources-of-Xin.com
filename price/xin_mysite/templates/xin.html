@@ -1,7 +1,27 @@
+<h1>Sources of Xin.com</h1>
 {% for xin in xin_list %}
-name: {{xin.name}}
-city: {{xin.city}}
-price: {{xin.price}}
-licensed_time: {{xin.licensed_time}}
-mile: {{xin.mile}}
+name: {{xin.name}}&nbsp;&nbsp;&nbsp;&nbsp;
+city: {{xin.city}}&nbsp;&nbsp;&nbsp;&nbsp;
+price: {{xin.price}}&nbsp;&nbsp;&nbsp;&nbsp;
+licensed_time: {{xin.licensed_time}}&nbsp;&nbsp;&nbsp;&nbsp;
+mile: {{xin.mile}}<br><br>
 {% endfor %}
+
+<div>
+{% if posts.has_previous %}
+<a href="?page={{ xin_list.previous_page_number }}">&lt;pre</a>
+{% endif %}
+<span>
+{% for p in page_range %}
+{% ifequal p xin_list.number %}
+<span class="current">{{p}}</span>
+{% else %}
+<a href="?page={{p}}" title ="this is page {{p}}">{{p}}</a>
+{% endifequal %}
+{% endfor %}
+</span>
+{% if xin_list.has_next %}
+<a href="?page={{ xin_list.next_page_number}}">nextpage&gt;</a>
+{% endif %}
+<a>[this is page {{ xin_list.number }}/{{ xin_list.paginator.num_pages}}]</a>
+</div>
